@@ -3,42 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon | YLLabs</title>
+  <title>YL Labs</title>
+  <meta name="description" content="YL Labs – Innovative tools and automation for your digital community." />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * {
-      box-sizing: border-box;
+    /* ✨ Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: linear-gradient(135deg, #111, #222);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 15px rgba(59,130,246,0.4); }
+      50% { box-shadow: 0 0 35px rgba(59,130,246,0.8); }
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5em;
+    .animate-fadeUp {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
     }
-    p {
-      font-size: 1.2rem;
-      color: #aaa;
+    .animate-fadeUp.visible {
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeUp 1.2s ease forwards;
     }
-    footer {
+    .glow-btn:hover {
+      transform: scale(1.05);
+      animation: glow 1.5s infinite;
+    }
+    .bg-glow {
       position: absolute;
-      bottom: 10px;
-      font-size: 0.9rem;
-      color: #666;
+      border-radius: 9999px;
+      filter: blur(80px);
+      opacity: 0.2;
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
     }
   </style>
 </head>
-<body>
-  <h1>🚧 Coming Soon 🚧</h1>
-  <p>We’re building something amazing at YLLabs.</p>
-  <footer>© 2025 YLLabs</footer>
+
+<body class="bg-gray-950 text-gray-100 font-sans overflow-x-hidden relative">
+
+  <!-- 🌌 Floating Lights -->
+  <div class="bg-glow w-96 h-96 bg-blue-600 top-20 left-10"></div>
+  <div class="bg-glow w-80 h-80 bg-indigo-600 bottom-10 right-10"></div>
+
+  <!-- 🧭 Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/70 backdrop-blur-md border-b border-gray-800">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <div class="flex items-center space-x-3">
+        <img src="images/Screenshot_2025-08-21_221712.webp" alt="YL Labs Logo"
+             class="h-10 w-10 rounded-full" 
+             onerror="this.style.display='none'; this.insertAdjacentHTML('afterend','<span class=\'text-xl font-bold text-blue-400\'>YL Labs</span>');">
+        <h1 class="text-xl font-bold text-blue-400">YL Labs</h1>
+      </div>
+      <nav class="hidden md:flex space-x-6 text-gray-300 text-sm font-medium">
+        <a href="#hero" class="hover:text-blue-400 transition">Home</a>
+        <a href="#features" class="hover:text-blue-400 transition">Features</a>
+        <a href="#community" class="hover:text-blue-400 transition">Community</a>
+        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🚀 Hero -->
+  <section id="hero" class="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-b from-gray-950 to-gray-900 relative">
+    <div class="max-w-3xl mx-auto px-6 animate-fadeUp">
+      <h1 class="text-6xl font-extrabold mb-6 text-blue-400 drop-shadow-lg">Welcome to YL Labs</h1>
+      <p class="text-lg text-gray-300 mb-10 leading-relaxed">Building next-generation tools that empower your community with automation, speed, and innovation.</p>
+      <a href="https://discord.gg/pvbMNSX3"
+         class="bg-blue-600 text-white px-10 py-4 rounded-full font-semibold shadow-lg transition-all glow-btn">
+        🚀 Get Started
+      </a>
+    </div>
+  </section>
+
+  <!-- ⚙️ Features -->
+  <section id="features" class="py-32 bg-gray-900 text-center relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-5xl font-bold mb-16 text-blue-400 animate-fadeUp">What We Offer</h2>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="p-8 bg-gray-800/60 backdrop-blur-md rounded-2xl border border-gray-700 hover:border-blue-500 transition animate-fadeUp">
+          <h3 class="text-2xl font-semibold mb-3 text-blue-400">⚙️ Smart Automation</h3>
+          <p class="text-gray-400">Simplify your workflow with automated moderation, roles, and commands.</p>
+        </div>
+        <div class="p-8 bg-gray-800/60 backdrop-blur-md rounded-2xl border border-gray-700 hover:border-blue-500 transition animate-fadeUp">
+          <h3 class="text-2xl font-semibold mb-3 text-blue-400">💬 Custom Commands</h3>
+          <p class="text-gray-400">Design responses that match your community’s tone and creativity.</p>
+        </div>
+        <div class="p-8 bg-gray-800/60 backdrop-blur-md rounded-2xl border border-gray-700 hover:border-blue-500 transition animate-fadeUp">
+          <h3 class="text-2xl font-semibold mb-3 text-blue-400">🚀 Lightning Performance</h3>
+          <p class="text-gray-400">Engineered for speed, stability, and zero downtime in large servers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌍 Community -->
+  <section id="community" class="py-32 bg-gradient-to-b from-blue-900 to-indigo-800 text-center relative">
+    <div class="max-w-4xl mx-auto px-6 animate-fadeUp">
+      <h2 class="text-4xl font-bold mb-6 text-blue-100">Join the YL Labs Community</h2>
+      <p class="text-blue-200 mb-10 text-lg">Collaborate, connect, and grow with other creators — all powered by innovation and teamwork.</p>
+      <a href="https://discord.gg/pvbMNSX3"
+         class="bg-white text-blue-700 px-10 py-4 rounded-full font-semibold shadow-lg hover:scale-105 transition-all">
+        💠 Join the Server
+      </a>
+    </div>
+  </section>
+
+  <!-- 📬 Contact -->
+  <section id="contact" class="py-28 bg-gray-900 text-center">
+    <div class="max-w-3xl mx-auto px-6 animate-fadeUp">
+      <h2 class="text-4xl font-bold mb-4 text-blue-400">Get in Touch</h2>
+      <p class="text-gray-400 mb-8">We’d love to collaborate or answer your questions. Drop us a message anytime!</p>
+      <a href="mailto:contact@yllabs.com"
+         class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-500 hover:scale-105 transition-all">
+        ✉️ yktixx@yllabs.xyz
+      </a>
+    </div>
+  </section>
+
+  <!-- 🧾 Footer -->
+  <footer class="bg-gray-950 py-6 text-center text-gray-400 text-sm border-t border-gray-800">
+    <p>© 2025 YL Labs – All Rights Reserved</p>
+  </footer>
+
+  <!-- 🔄 Scroll Animation -->
+  <script>
+    const els = document.querySelectorAll('.animate-fadeUp');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    els.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
