@@ -1,145 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YL Labs</title>
-  <meta name="description" content="YL Labs – Innovative tools and automation for your digital community." />
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* ✨ Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 15px rgba(59,130,246,0.4); }
-      50% { box-shadow: 0 0 35px rgba(59,130,246,0.8); }
-    }
-    .animate-fadeUp {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease;
-    }
-    .animate-fadeUp.visible {
-      opacity: 1;
-      transform: translateY(0);
-      animation: fadeUp 1.2s ease forwards;
-    }
-    .glow-btn:hover {
-      transform: scale(1.05);
-      animation: glow 1.5s infinite;
-    }
-    .bg-glow {
-      position: absolute;
-      border-radius: 9999px;
-      filter: blur(80px);
-      opacity: 0.2;
-      animation: float 8s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YLLabs Desktop</title>
+<style>
+/* ========= BASE WINDOWS 95 STYLES ========= */
+body {
+  background-color: #008080;
+  font-family: "MS Sans Serif", Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.desktop {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 20px;
+  height: 100%;
+}
+
+/* Icons */
+.icon {
+  width: 80px;
+  text-align: center;
+  color: white;
+  margin: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.icon img {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+.icon:hover {
+  filter: brightness(1.1);
+}
+
+/* Windows */
+.window {
+  position: absolute;
+  width: 420px;
+  background: #c0c0c0;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #404040;
+}
+
+.title-bar {
+  background: linear-gradient(#000080, #000060);
+  color: white;
+  padding: 4px 8px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+
+.title-bar button {
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  line-height: 10px;
+}
+.title-bar button:active {
+  border: 2px inset #808080;
+}
+
+.window-content {
+  background: #c0c0c0;
+  padding: 8px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
+
+.window iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+  background: white;
+}
+
+/* Scrollbar mimic */
+::-webkit-scrollbar { width: 12px; background: #c0c0c0; }
+::-webkit-scrollbar-thumb {
+  background: #808080;
+  border: 2px solid #c0c0c0;
+}
+
+/* Footer / taskbar */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 28px;
+  background: linear-gradient(#c0c0c0, #a0a0a0);
+  border-top: 2px solid #808080;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 14px;
+  color: black;
+}
+footer img {
+  height: 18px;
+  margin-right: 6px;
+}
+</style>
 </head>
+<body>
+  <div class="desktop" id="desktop"></div>
 
-<body class="bg-gray-950 text-gray-100 font-sans overflow-x-hidden relative">
-
-  <!-- 🌌 Floating Lights -->
-  <div class="bg-glow w-96 h-96 bg-blue-600 top-20 left-10"></div>
-  <div class="bg-glow w-80 h-80 bg-indigo-600 bottom-10 right-10"></div>
-
-  <!-- 🧭 Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/70 backdrop-blur-md border-b border-gray-800">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-      <div class="flex items-center space-x-3">
-        <img src="images/Screenshot_2025-08-21_221712.webp" alt="YL Labs Logo"
-             class="h-10 w-10 rounded-full" 
-             onerror="this.style.display='none'; this.insertAdjacentHTML('afterend','<span class=\'text-xl font-bold text-blue-400\'>YL Labs</span>');">
-        <h1 class="text-xl font-bold text-blue-400">YL Labs</h1>
-      </div>
-      <nav class="hidden md:flex space-x-6 text-gray-300 text-sm font-medium">
-        <a href="#hero" class="hover:text-blue-400 transition">Home</a>
-        <a href="#features" class="hover:text-blue-400 transition">Features</a>
-        <a href="#community" class="hover:text-blue-400 transition">Community</a>
-        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- 🚀 Hero -->
-  <section id="hero" class="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-b from-gray-950 to-gray-900 relative">
-    <div class="max-w-3xl mx-auto px-6 animate-fadeUp">
-      <h1 class="text-6xl font-extrabold mb-6 text-blue-400 drop-shadow-lg">Welcome to YL Labs</h1>
-      <p class="text-lg text-gray-300 mb-10 leading-relaxed">Building next-generation tools that empower your community with automation, speed, and innovation.</p>
-      <a href="https://discord.gg/pvbMNSX3"
-         class="bg-blue-600 text-white px-10 py-4 rounded-full font-semibold shadow-lg transition-all glow-btn">
-        🚀 Get Started
-      </a>
-    </div>
-  </section>
-
-  <!-- ⚙️ Features -->
-  <section id="features" class="py-32 bg-gray-900 text-center relative">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-5xl font-bold mb-16 text-blue-400 animate-fadeUp">What We Offer</h2>
-      <div class="grid md:grid-cols-3 gap-10">
-        <div class="p-8 bg-gray-800/60 backdrop-blur-md rounded-2xl border border-gray-700 hover:border-blue-500 transition animate-fadeUp">
-          <h3 class="text-2xl font-semibold mb-3 text-blue-400">⚙️ Smart Automation</h3>
-          <p class="text-gray-400">Simplify your workflow with automated moderation, roles, and commands.</p>
-        </div>
-        <div class="p-8 bg-gray-800/60 backdrop-blur-md rounded-2xl border border-gray-700 hover:border-blue-500 transition animate-fadeUp">
-          <h3 class="text-2xl font-semibold mb-3 text-blue-400">💬 Custom Commands</h3>
-          <p class="text-gray-400">Design responses that match your community’s tone and creativity.</p>
-        </div>
-        <div class="p-8 bg-gray-800/60 backdrop-blur-md rounded-2xl border border-gray-700 hover:border-blue-500 transition animate-fadeUp">
-          <h3 class="text-2xl font-semibold mb-3 text-blue-400">🚀 Lightning Performance</h3>
-          <p class="text-gray-400">Engineered for speed, stability, and zero downtime in large servers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 🌍 Community -->
-  <section id="community" class="py-32 bg-gradient-to-b from-blue-900 to-indigo-800 text-center relative">
-    <div class="max-w-4xl mx-auto px-6 animate-fadeUp">
-      <h2 class="text-4xl font-bold mb-6 text-blue-100">Join the YL Labs Community</h2>
-      <p class="text-blue-200 mb-10 text-lg">Collaborate, connect, and grow with other creators — all powered by innovation and teamwork.</p>
-      <a href="https://discord.gg/pvbMNSX3"
-         class="bg-white text-blue-700 px-10 py-4 rounded-full font-semibold shadow-lg hover:scale-105 transition-all">
-        💠 Join the Server
-      </a>
-    </div>
-  </section>
-
-  <!-- 📬 Contact -->
-  <section id="contact" class="py-28 bg-gray-900 text-center">
-    <div class="max-w-3xl mx-auto px-6 animate-fadeUp">
-      <h2 class="text-4xl font-bold mb-4 text-blue-400">Get in Touch</h2>
-      <p class="text-gray-400 mb-8">We’d love to collaborate or answer your questions. Drop us a message anytime!</p>
-      <a href="mailto:contact@yllabs.com"
-         class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-500 hover:scale-105 transition-all">
-        ✉️ yktixx@yllabs.xyz
-      </a>
-    </div>
-  </section>
-
-  <!-- 🧾 Footer -->
-  <footer class="bg-gray-950 py-6 text-center text-gray-400 text-sm border-t border-gray-800">
-    <p>© 2025 YL Labs – All Rights Reserved</p>
+  <footer>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Windows_logo_-_1992.svg" alt="Start" />
+    Start
   </footer>
 
-  <!-- 🔄 Scroll Animation -->
-  <script>
-    const els = document.querySelectorAll('.animate-fadeUp');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-    els.forEach(el => observer.observe(el));
-  </script>
+<script>
+/* ========= EASY APP CONFIG =========
+Each entry can use:
+ - type: "html" → loads from /apps/filename.html
+ - type: "url"  → loads from full external link
+*/
+const apps = [
+  { name: "About",  type: "html", file: "about.html",  icon: "icons/about.png" },
+  { name: "Projects", type: "html", file: "projects.html", icon: "icons/projects.png" },
+  { name: "Contact", type: "html", file: "contact.html", icon: "icons/contact.png" },
+  { name: "YLLabs Site", type: "url", file: "https://yllabs.com", icon: "icons/browser.png" },
+];
+
+/* ========= RENDER ICONS ========= */
+const desktop = document.getElementById("desktop");
+apps.forEach(app => {
+  const icon = document.createElement("div");
+  icon.className = "icon";
+  icon.innerHTML = `
+    <img src="${app.icon}" alt="${app.name}" />
+    <div>${app.name}</div>
+  `;
+  icon.onclick = () => openWindow(app);
+  desktop.appendChild(icon);
+});
+
+/* ========= WINDOW LOGIC ========= */
+let zIndex = 20;
+
+function openWindow(app) {
+  const src = app.type === "url" ? app.file : `apps/${app.file}`;
+  const win = document.createElement('div');
+  win.className = 'window';
+  win.style.top = Math.random() * 40 + 80 + 'px';
+  win.style.left = Math.random() * 100 + 80 + 'px';
+  win.style.zIndex = zIndex++;
+
+  win.innerHTML = `
+    <div class="title-bar" onmousedown="dragStart(event,this.parentElement)">
+      <span>${app.name}</span>
+      <div>
+        <button onclick="minimizeWindow(this)">_</button>
+        <button onclick="this.parentElement.parentElement.parentElement.remove()">X</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <iframe src="${src}" title="${app.name}"></iframe>
+    </div>
+  `;
+  document.body.appendChild(win);
+}
+
+/* ========= MINIMIZE ========= */
+function minimizeWindow(btn){
+  const win = btn.closest(".window");
+  const content = win.querySelector(".window-content");
+  content.style.display = content.style.display === "none" ? "block" : "none";
+}
+
+/* ========= DRAG ========= */
+let activeWin = null, offsetX = 0, offsetY = 0;
+function dragStart(e, win){
+  activeWin = win;
+  offsetX = e.clientX - win.offsetLeft;
+  offsetY = e.clientY - win.offsetTop;
+  document.onmousemove = dragMove;
+  document.onmouseup = dragStop;
+  win.style.zIndex = zIndex++;
+}
+function dragMove(e){
+  if(!activeWin) return;
+  activeWin.style.left = (e.clientX - offsetX)+'px';
+  activeWin.style.top  = (e.clientY - offsetY)+'px';
+}
+function dragStop(){
+  document.onmousemove = null;
+  document.onmouseup = null;
+  activeWin = null;
+}
+</script>
 </body>
 </html>
