@@ -226,8 +226,6 @@ document.body.addEventListener("click",e=>{
   if(!startMenu.contains(e.target) && e.target!==startBtn) toggleStart(true);
 });
 
-/* ---------- Windows ---------- */
-let zIndex = 20;
 function openWindow(app){
   const src = app.type==="url" ? app.file : `apps/${app.file}`;
   const win = document.createElement('div');
@@ -241,6 +239,7 @@ function openWindow(app){
       <span>${app.name}</span>
       <div>
         <button onclick="minimizeWindow(this)">_</button>
+        <button onclick="window.open('${src}', '_blank')">🗖</button>
         <button onclick="this.parentElement.parentElement.parentElement.remove()">X</button>
       </div>
     </div>
