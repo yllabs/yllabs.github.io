@@ -16,25 +16,21 @@
     height: 100vh;
     color: white;
   }
-
   h1 {
     font-size: 18px;
     margin: 4px 0;
     color: #fff;
     text-shadow: 1px 1px 0 #000;
   }
-
   #gameContainer {
     background-color: #000;
     border: 3px solid #c0c0c0;
     box-shadow: 2px 2px 0 #404040;
   }
-
   canvas {
     background-color: #001a00;
     image-rendering: pixelated;
   }
-
   #score {
     margin-top: 8px;
     font-size: 14px;
@@ -54,10 +50,7 @@
   const box = 15;
   const canvasSize = 20;
   let snake = [{ x: 9 * box, y: 9 * box }];
-  let food = {
-    x: Math.floor(Math.random() * canvasSize) * box,
-    y: Math.floor(Math.random() * canvasSize) * box,
-  };
+  let food = { x: Math.floor(Math.random() * canvasSize) * box, y: Math.floor(Math.random() * canvasSize) * box };
   let direction = "RIGHT";
   let score = 0;
   let speed = 120;
@@ -106,14 +99,7 @@
 
     const newHead = { x: snakeX, y: snakeY };
 
-    // Game over conditions
-    if (
-      snakeX < 0 ||
-      snakeY < 0 ||
-      snakeX >= canvas.width ||
-      snakeY >= canvas.height ||
-      collision(newHead, snake)
-    ) {
+    if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height || collision(newHead, snake)) {
       clearInterval(game);
       ctx.fillStyle = "white";
       ctx.font = "16px 'MS Sans Serif'";
