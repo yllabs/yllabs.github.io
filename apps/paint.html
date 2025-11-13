@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Retro Paint</title>
+<style>
+body {
+  margin: 0;
+  background: #c0c0c0;
+  font-family: "MS Sans Serif";
+  text-align: center;
+}
+h1 {
+  background: linear-gradient(#000080, #000060);
+  color: white;
+  padding: 8px;
+  margin: 0;
+  font-size: 16px;
+}
+canvas {
+  background: white;
+  border: 3px solid #808080;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+.toolbar {
+  margin: 10px;
+}
+button {
+  margin: 2px;
+  padding: 5px 10px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  cursor: pointer;
+}
+button:active {
+  border: 2px inset #808080;
+}
+input[type=color] {
+  border: none;
+  width: 40px;
+  height: 30px;
+}
+</style>
+</head>
+<body>
+<h1>🎨 Retro Paint</h1>
+<div class="toolbar">
+  <button onclick="clearCanvas()">🧹 Clear</button>
+  <button onclick="changeSize(1)">➕</button>
+  <button onclick="changeSize(-1)">➖</button>
+  <input type="color" id="colorPicker" value="#000000">
+  <button onclick="saveCanvas()">💾 Save as PNG</button>
+</div>
+<canvas id="paint" width="512" height="512"></canvas>
+
+<script>
+const canvas = document.getElementById('paint');
+const ctx = canvas.getContext('2d');
+let painting = false;
+let brushSize = 8;
+let color = document.getElementById('colorPicker').value;
+
+canvas.addEventListener('mousedown', () => painting = true);
+canvas.addEventListener('mouseup', () => painting = false);
+canvas.addEventListener('mouseleave', () => painting = false);
+canvas.addEventListener('mousemove', draw);
+document.getElementById('colorPicker').onchange = e => color = e.target.value;
+
+function draw(e) {
+  if (!painting) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.floor(x / brushSize) * brushSize, Math.floor(y / brushSize) * brushSize, brushSize, brushSize);
+}
+
+function clearCanvas() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function changeSize(amount) {
+  brushSize = Math.max(2, brushSize + amount);
+}
+
+function saveCanvas() {
+  const link = document.createElement('a');
+  link.download = `retro_paint_${Date.now()}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+clearCanvas();
+</script>
+</body>
+</html>
