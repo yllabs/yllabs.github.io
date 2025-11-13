@@ -11,6 +11,7 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
+  color: white;
 }
 .desktop {
   display: flex;
@@ -167,14 +168,14 @@ const apps = [
   { name: "Noah", type: "url", file: "https://yllabs.xyz/noah", icon: "https://cdn.discordapp.com/attachments/1437017654841049274/1438244035230826567/image.png?ex=69162ca3&is=6914db23&hm=78a3a4a859b120702f9dd4ab43e07826106dfc7ca5e636118c9b69bb5cfa2f8d&" },
   { name: "YLLabs Search", type: "url", file: "https://yllabs.xyz/search", icon: "https://cdn.discordapp.com/attachments/1437017654841049274/1438298021082173562/yllabs_logo-removebg-preview.png?ex=69165eea&is=69150d6a&hm=f577ec109511af6140df435aa0c0c182933a514d3833f11aa09a5967fd28c3b3&" },
   { name: "Logan", type: "url", file: "https://yllabs.xyz/logan", icon: "https://cdn.discordapp.com/attachments/1437017654841049274/1438152045885394994/image.png?ex=6915d6f7&is=69148577&hm=6fbb466f87c928201e0ede7a87178f58e36fa3654da8d1db982cd6105ffe1977&" },
-  { name: "Snake", type: "html", file: "snake.html", icon: "https://cdn4.iconfinder.com/data/icons/miscellaneous-44/24/snake-game-512.png" }
+  { name: "Snake", type: "tab", file: "apps/snake.html", icon: "https://cdn4.iconfinder.com/data/icons/miscellaneous-44/24/snake-game-512.png" },
+  { name: "Retro Paint", type: "tab", file: "apps/paint.html", icon: "https://win98icons.alexmeub.com/icons/png/paint_file-2.png" }
 ];
 
 let zIndex = 20;
 const desktop = document.getElementById("desktop");
 const startMenuList = document.getElementById("startMenuList");
 
-// Render icons
 apps.forEach(app => {
   const icon = document.createElement("div");
   icon.className = "icon";
@@ -188,7 +189,6 @@ apps.forEach(app => {
   startMenuList.appendChild(menuItem);
 });
 
-// Start Menu
 const startBtn = document.getElementById("startBtn");
 const startMenu = document.getElementById("startMenu");
 startBtn.onclick = () => toggleStart();
@@ -199,8 +199,12 @@ document.body.addEventListener("click",e=>{
   if(!startMenu.contains(e.target) && e.target!==startBtn) toggleStart(true);
 });
 
-// Open window
 function openWindow(app){
+  if (app.type === "tab") {
+    window.open(app.file, "_blank");
+    return;
+  }
+
   const src = app.type==="url" ? app.file : `apps/${app.file}`;
   const win = document.createElement('div');
   win.className='window';
@@ -208,28 +212,27 @@ function openWindow(app){
   win.style.left=Math.random()*100+80+'px';
   win.style.zIndex=zIndex++;
 
-  win.innerHTML=`<div class="title-bar" onmousedown="dragStart(event,this.parentElement)">
-    <span>${app.name}</span>
-    <div>
-      <button onclick="minimizeWindow(this)">_</button>
-      <button onclick="window.open('${src}', '_blank')">🗖</button>
-      <button onclick="this.parentElement.parentElement.parentElement.remove()">X</button>
+  win.innerHTML=`
+    <div class="title-bar" onmousedown="dragStart(event,this.parentElement)">
+      <span>${app.name}</span>
+      <div>
+        <button onclick="minimizeWindow(this)">_</button>
+        <button onclick="window.open('${src}', '_blank')">🗖</button>
+        <button onclick="this.parentElement.parentElement.parentElement.remove()">X</button>
+      </div>
     </div>
-  </div>
-  <div class="window-content">
-    <iframe src="${src}" title="${app.name}"></iframe>
-  </div>`;
+    <div class="window-content">
+      <iframe src="${src}" title="${app.name}"></iframe>
+    </div>`;
   document.body.appendChild(win);
 }
 
-// Minimize
 function minimizeWindow(btn){
   const win=btn.closest(".window");
   const content=win.querySelector(".window-content");
   content.style.display = content.style.display==="none" ? "block" : "none";
 }
 
-// Dragging
 let activeWin=null, offsetX=0, offsetY=0;
 function dragStart(e,win){
   activeWin=win;
@@ -250,7 +253,6 @@ function dragStop(){
   activeWin=null;
 }
 
-// Shutdown
 function shutdown(){
   alert("Windows 95 is shutting down...");
   window.close();
